@@ -1,0 +1,21 @@
+﻿  BankManagementSystem.cpp
+C:\Users\willi\Documents\CPP\BankManagementSystem\BankManagementSystem.cpp(35,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\willi\Documents\CPP\BankManagementSystem\DatabaseHandler.h(67,13): warning C4311: 'type cast': pointer truncation from 'const unsigned char *' to 'int'
+  (compiling source file 'BankManagementSystem.cpp')
+  C:\Users\willi\Documents\CPP\BankManagementSystem\DatabaseHandler.h(67,13):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\willi\Documents\CPP\BankManagementSystem\BankManagementSystem.cpp(253,20):
+  	see reference to function template instantiation 'void DatabaseHandler::getData<int>(std::string,int,T *)' being compiled
+          with
+          [
+              T=int
+          ]
+  
+C:\Users\willi\Documents\CPP\BankManagementSystem\DatabaseHandler.h(67,13): warning C4302: 'type cast': truncation from 'const unsigned char *' to 'int'
+  (compiling source file 'BankManagementSystem.cpp')
+  
+  Common.h
+  DatabaseHandler.cpp
+  main.cpp
+  Generating Code...
+C:\Users\willi\Documents\CPP\BankManagementSystem\DatabaseHandler.cpp(281): error C4716: 'DatabaseHandler::updateBalance': must return a value
