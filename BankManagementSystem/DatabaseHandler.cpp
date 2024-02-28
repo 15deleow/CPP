@@ -277,7 +277,7 @@ bool DatabaseHandler::updateDate(std::string newDate, std::string accountNumber)
 }
 
 bool DatabaseHandler::updateBalance(std::string accountNum, double newBalance) {
-    
+    return true;
 }
 
 std::string DatabaseHandler::getAccountNumber(std::string name) {
