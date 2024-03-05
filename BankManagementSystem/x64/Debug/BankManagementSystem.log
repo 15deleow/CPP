@@ -1,3 +1,19 @@
-﻿  DatabaseHandler.cpp
-  LINK : C:\Users\willi\Documents\CPP\BankManagementSystem\x64\Debug\BankManagementSystem.exe not found or not built by the last incremental link; performing full link
+﻿  BankManagementSystem.cpp
+C:\Users\willi\Documents\CPP\BankManagementSystem\DatabaseHandler.h(71,4): warning C4984: 'if constexpr' is a C++17 language extension
+  (compiling source file 'BankManagementSystem.cpp')
+  C:\Users\willi\Documents\CPP\BankManagementSystem\DatabaseHandler.h(50,7):
+  This diagnostic occurred in the compiler generated function 'void DatabaseHandler::getData(std::string,int,T *)'
+  
+C:\Users\willi\Documents\CPP\BankManagementSystem\DatabaseHandler.h(74,9): warning C4984: 'if constexpr' is a C++17 language extension
+  (compiling source file 'BankManagementSystem.cpp')
+  C:\Users\willi\Documents\CPP\BankManagementSystem\DatabaseHandler.h(50,7):
+  This diagnostic occurred in the compiler generated function 'void DatabaseHandler::getData(std::string,int,T *)'
+  
+C:\Users\willi\Documents\CPP\BankManagementSystem\DatabaseHandler.h(77,9): warning C4984: 'if constexpr' is a C++17 language extension
+  (compiling source file 'BankManagementSystem.cpp')
+  C:\Users\willi\Documents\CPP\BankManagementSystem\DatabaseHandler.h(50,7):
+  This diagnostic occurred in the compiler generated function 'void DatabaseHandler::getData(std::string,int,T *)'
+  
+C:\Users\willi\Documents\CPP\BankManagementSystem\BankManagementSystem.cpp(38,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\willi\Documents\CPP\BankManagementSystem\BankManagementSystem.cpp(196,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   BankManagementSystem.vcxproj -> C:\Users\willi\Documents\CPP\BankManagementSystem\x64\Debug\BankManagementSystem.exe

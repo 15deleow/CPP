@@ -10,7 +10,10 @@
 #include "Common.h"
 #include <typeinfo>
 #include <type_traits>
-
+#include <iomanip>
+#include <cstdlib>   // for rand() and srand()
+#include <ctime>     // for time()
+#include <limits>
 
 /*
 * This class will handle all Database operations from
@@ -45,6 +48,7 @@ public:
 
 	template <typename T>
 	void getData(std::string accountNumber, int columnLoc, T *data);
+	void DisplayAccount(const std::string accountNumber = "");
 };
 
 template <typename T>
@@ -60,14 +64,18 @@ void DatabaseHandler::getData(std::string accountNumber, int columnLoc, T* data)
 	if (result == SQLITE_OK) {
 		result = sqlite3_step(stmt);
 		if (result == SQLITE_ROW) {
-			if (std::is_same<T, int>::value) {
-				*data = sqlite3_column_int(stmt, columnLoc);
+			const unsigned char* text = sqlite3_column_text(stmt, columnLoc);
+
+			//Handle the possible data types
+			//constexpr ensures only the code relevant to the type of T is compiled and executed
+			if constexpr (std::is_same_v<T, int>) {
+				*data = text ? std::stoi(reinterpret_cast<const char*>(text)) : 0;
 			}
-			else if (std::is_same<T, std::string>::value) {
-				*data = (T)sqlite3_column_text(stmt, columnLoc);
+			else if constexpr (std::is_same_v<T, double>) {
+				*data = text ? std::stod(reinterpret_cast<const char*>(text)) : 0.0;
 			}
-			else {
-				*data = (T)sqlite3_column_double(stmt, columnLoc);
+			else if constexpr (std::is_same_v<T, std::string>) {
+				*data = text ? std::string(reinterpret_cast<const char*>(text)) : std::string();
 			}
 		}
 

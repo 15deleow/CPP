@@ -183,23 +183,64 @@ bool DatabaseHandler::updateAccount(std::string accountNumber, int selection) {
     return true;
 }
 
-//Helper Methods
-std::string DatabaseHandler::createInsertQuery(CUSTOMER customer) {
-    std::stringstream ss;
-    ss << "INSERT INTO ACCOUNTS (ACCNUM, NAME, AGE, PHONE, ADDRESS, DOB, DATE, ACCTYPE, AMOUNT) VALUES ("
-        << "'" << customer.accountNumber << "', "
-        << "'" << customer.name << "', "
-        << customer.age << ", "
-        << "'" << customer.phone << "', "
-        << "'" << customer.address << "', "
-        << "'" << customer.dob << "', "
-        << "'" << customer.date << "', "
-        << customer.acctype << ", "
-        << customer.amount << ");";
+void DatabaseHandler::DisplayAccount(const std::string accountNumber) {
+    sqlite3_stmt* stmt;
+    std::string query;
 
-    return ss.str();
+    //Create query statement to get all accounts or a specific account
+    if (accountNumber.empty()) {
+        query = "SELECT * FROM ACCOUNTS ORDER BY name ASC;";
+    }
+    else {
+        query = "SELECT * FROM ACCOUNTS WHERE ACCNUM = '" + accountNumber + "';";
+    }
+
+    //Connect to database
+    openConnection();
+
+    //Get data from database
+    int result = sqlite3_prepare_v2(this->db, query.c_str(), -1, &stmt, nullptr);
+    if (result == SQLITE_OK) {
+        while (sqlite3_step(stmt) == SQLITE_ROW) {
+            //Get Specific data
+            const unsigned char* accountNum = sqlite3_column_text(stmt, ACCNUM);
+            const unsigned char* name = sqlite3_column_text(stmt, NAMESTRING);
+            const unsigned char* phone = sqlite3_column_text(stmt, PHONENUM);
+            int accountType = sqlite3_column_int(stmt, ACCTYPE);
+
+            //Print out data
+            std::cout << std::left << std::setw(20) << accountNum;
+            std::cout << std::setw(20) << name;
+            std::cout << std::setw(20) << phone;
+            switch (accountType) {
+            case FIXED1:
+                std::cout << std::setw(15) << "Fixed 1" << std::endl;
+                break;
+            case FIXED2:
+                std::cout << std::setw(15) << "Fixed 2" << std::endl;
+                break;
+            case FIXED3:
+                std::cout << std::setw(15) << "Fixed 3" << std::endl;
+                break;
+            case SAVING:
+                std::cout << std::setw(15) << "Saving" << std::endl;
+                break;
+            case CURRENT:
+                std::cout << std::setw(15) << "Current" << std::endl;
+                break;
+            }
+        }
+
+        sqlite3_finalize(stmt);
+    }
+    else {
+        std::cerr << "[ERR] " << sqlite3_errmsg(this->db) << std::endl;
+    }
+
+    closeConnection();
 }
 
+//Helper Methods
 bool DatabaseHandler::openConnection() {
     if (sqlite3_open(this->databaseName.c_str(), &this->db) != SQLITE_OK) {
         std::cerr << "[ERR] " << sqlite3_errmsg(this->db) << std::endl;
@@ -277,6 +318,18 @@ bool DatabaseHandler::updateDate(std::string newDate, std::string accountNumber)
 }
 
 bool DatabaseHandler::updateBalance(std::string accountNum, double newBalance) {
+    std::stringstream query;
+    query << "UPDATE ACCOUNTS SET AMOUNT = '" << newBalance << "' WHERE ACCNUM = '" << accountNum << "';";
+
+    openConnection();
+
+    if (sqlite3_exec(this->db, query.str().c_str(), nullptr, nullptr, nullptr) != SQLITE_OK) {
+        std::cout << "[ERR] " << sqlite3_errmsg(this->db) << std::endl;
+        return false;
+    }
+
+    closeConnection();
+
     return true;
 }
 
@@ -307,4 +360,20 @@ std::string DatabaseHandler::getAccountNumber(std::string name) {
     closeConnection();
 
     return accountNumber;
+}
+
+std::string DatabaseHandler::createInsertQuery(CUSTOMER customer) {
+    std::stringstream ss;
+    ss << "INSERT INTO ACCOUNTS (ACCNUM, NAME, AGE, PHONE, ADDRESS, DOB, DATE, ACCTYPE, AMOUNT) VALUES ("
+        << "'" << customer.accountNumber << "', "
+        << "'" << customer.name << "', "
+        << customer.age << ", "
+        << "'" << customer.phone << "', "
+        << "'" << customer.address << "', "
+        << "'" << customer.dob << "', "
+        << "'" << customer.date << "', "
+        << customer.acctype << ", "
+        << customer.amount << ");";
+
+    return ss.str();
 }

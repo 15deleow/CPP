@@ -1,0 +1,1 @@
+C:\Users\willi\Documents\CPP\BankManagementSystemTest\x64\Debug\BankManagementSystemTest.vcxproj.CopyComplete

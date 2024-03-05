@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BankManagementSystem", "BankManagementSystem.vcxproj", "{F831324F-2FBD-4180-9F16-8E22CA72D36D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BankManagementSystemTest", "..\BankManagementSystemTest\BankManagementSystemTest.vcxproj", "{8BCA550B-263D-4A46-BCC8-55F5360A07BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{F831324F-2FBD-4180-9F16-8E22CA72D36D}.Release|x64.Build.0 = Release|x64
 		{F831324F-2FBD-4180-9F16-8E22CA72D36D}.Release|x86.ActiveCfg = Release|Win32
 		{F831324F-2FBD-4180-9F16-8E22CA72D36D}.Release|x86.Build.0 = Release|Win32
+		{8BCA550B-263D-4A46-BCC8-55F5360A07BC}.Debug|x64.ActiveCfg = Debug|x64
+		{8BCA550B-263D-4A46-BCC8-55F5360A07BC}.Debug|x64.Build.0 = Debug|x64
+		{8BCA550B-263D-4A46-BCC8-55F5360A07BC}.Debug|x86.ActiveCfg = Debug|Win32
+		{8BCA550B-263D-4A46-BCC8-55F5360A07BC}.Debug|x86.Build.0 = Debug|Win32
+		{8BCA550B-263D-4A46-BCC8-55F5360A07BC}.Release|x64.ActiveCfg = Release|x64
+		{8BCA550B-263D-4A46-BCC8-55F5360A07BC}.Release|x64.Build.0 = Release|x64
+		{8BCA550B-263D-4A46-BCC8-55F5360A07BC}.Release|x86.ActiveCfg = Release|Win32
+		{8BCA550B-263D-4A46-BCC8-55F5360A07BC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
