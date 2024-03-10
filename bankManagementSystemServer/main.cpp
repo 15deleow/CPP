@@ -1,8 +1,7 @@
-#include <iostream>
-#include <mysql-cppconn-8/mysql/jdbc.h>
+#include "databaseHandler.h"
 
-int main(void){
-    try{
+void testMySqlServer(){
+        try{
         sql::Driver * driver;
         sql::Connection * con;
         sql::Statement *stmt;
@@ -71,13 +70,33 @@ int main(void){
 
         std::cout << "Test database deleted." << std::endl;
         delete con;
-        
-
     }catch(sql::SQLException &e){
         std::cout << "SQL Exception: " << e.what() << std::endl;
     }
 
     std::cout << "All Done!!" << std::endl;
+}
+
+int main(void){
+    // testMySqlServer();
+    std::string url;
+    std::string userName;
+    std::string password;
+
+    // std::cout << "Enter hostname: ";
+    // std::getline(std::cin, url);
+
+    // std::cout << "Enter username: ";
+    // std::getline(std::cin, userName);
+
+    // std::cout << "Enter password: ";
+    // std::getline(std::cin, password);
+
+    url = "tcp://127.0.0.1:3306";
+    userName = "root";
+    password = "sql_password23";
+    
+    DatabaseHandler dbHandler(url, userName, password);
 
     return 0;
 }

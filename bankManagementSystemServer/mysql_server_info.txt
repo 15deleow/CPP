@@ -20,3 +20,6 @@ INSERT INTO test_table (name) VALUES ('John'), ('Alice'), ('Bob');
 	This command inserts some test data into the test_table table.
 SELECT * FROM test_table;
 	This command retrieves all the rows from the test_table table.
+
+Visual connect to server: 
+	mysql -h localhost -u root -p
