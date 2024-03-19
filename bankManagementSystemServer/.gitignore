@@ -1,1 +1,8 @@
 mysql_server_info.txt
+main.cpp
+*.exe
+*.o
+*.sql
+bank_manager_server
+.vscode/*
+.vscode/settings.json
