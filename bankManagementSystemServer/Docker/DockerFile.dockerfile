@@ -12,14 +12,15 @@ WORKDIR /app
 # Copy source files for Database Handler Class and Bank Manager Class
 COPY database_handler /app/database_handler/
 COPY BankManager /app/BankManager/
+COPY Utilities /app/Utilities/
 
 # Compile Database Handler Class
 WORKDIR /app/DatabaseHandler/
-RUN g++ -o databasehandler.o -c DatabaseHandler.cpp -I .
+RUN g++ -o databasehandler.o -c DatabaseHandler.cpp -I../Utilities
 
 # Compile Bank Manager Class
 WORKDIR /app/bank_manager/
-RUN g++ -o BankManager.o -c BankManager.cpp -I ../database_handler
+RUN g++ -o BankManager.o -c BankManager.cpp -I ../database_handler -I../Utilities
 
 # Link Bank Manager Class with Database Handler Class and create executable
 RUN g++ -o bank_manager_server ../database_handler/DatabaseHandler.o BankManager.o
