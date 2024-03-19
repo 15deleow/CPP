@@ -4,5 +4,4 @@ main.cpp
 *.o
 *.sql
 bank_manager_server
-.vscode/*
 .vscode/settings.json
