@@ -10,6 +10,9 @@ struct account_data {
     std::string address;
     int accountType;
     std::string phoneNumber;
+    double balance;
     std::string dob;
     std::string date;
 };
+
+enum ACCOUNT_TYPE {FIXED1, FIXED2, FIXED3, SAVING, CURRENT};

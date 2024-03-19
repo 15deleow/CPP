@@ -6,3 +6,4 @@ main.cpp
 bank_manager_server
 .vscode/settings.json
 .vscode
+build.sh

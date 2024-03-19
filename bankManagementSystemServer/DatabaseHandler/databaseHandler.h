@@ -1,4 +1,7 @@
-#include "Utilties/common.h"
+#ifndef DATABASE_HANDLER_H
+#define DATABASE_HANDLER_H
+
+#include "common.h"
 #include <mysql-cppconn-8/mysql/jdbc.h>
 
 class DatabaseHandler {
@@ -19,8 +22,10 @@ public:
     ~DatabaseHandler();
 
     //Main Database Methods
-    bool insert();
+    bool insert(account_data user);
     bool remove();
     bool update();
     bool view();
 };
+
+#endif //DATABASE_HANDLER_H
