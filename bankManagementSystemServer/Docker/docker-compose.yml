@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mysql_server:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: sql_password23
+      MYSQL_DATABASE: bank_manager_db
+    ports:
+      - "3306:3306"  # Map MySQL port to host
+
+  bank_manager_server:
+    build:
+      context: .
+      dockerfile: DockerFile.dockerfile
+    ports:
+      - "8080:8080"  # Map Bank Manager server port to host
+    depends_on:
+      - mysql_server  # Ensure that MySQL server container is started first

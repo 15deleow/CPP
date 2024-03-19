@@ -66,3 +66,7 @@ bool DatabaseHandler::createTable(){
         return false;   
     }
 }
+
+bool DatabaseHandler::insert(){
+    
+}

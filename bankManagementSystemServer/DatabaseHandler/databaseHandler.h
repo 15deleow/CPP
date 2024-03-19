@@ -1,4 +1,4 @@
-#include "common.h"
+#include "Utilties/common.h"
 #include <mysql-cppconn-8/mysql/jdbc.h>
 
 class DatabaseHandler {
@@ -17,4 +17,10 @@ private:
 public:
     DatabaseHandler(std::string url, std::string userName, std::string password);
     ~DatabaseHandler();
+
+    //Main Database Methods
+    bool insert();
+    bool remove();
+    bool update();
+    bool view();
 };
