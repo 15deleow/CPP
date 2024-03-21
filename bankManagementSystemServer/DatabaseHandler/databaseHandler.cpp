@@ -78,12 +78,13 @@ bool DatabaseHandler::insert(account_data user){
         query << "(name, account, age, address, account_type, phone, balance, dob, date) ";
         query << "VALUES ('" << user.name << "', '" << user.accountNumber << "', ";
         query << user.age << ", '" << user.address << "', " << user.accountType;
-        query << ", " << user.balance << ", '" << user.phoneNumber << "', '" << user.dob;
+        query << ", '" << user.phoneNumber << "', " << user.balance << ", '" << user.dob;
         query << "', '" << user.date << "')"; 
 
         //Execute Query
         sql::Statement * statement = connection->createStatement();
         statement->execute(query.str());
+        delete statement;
     } catch (sql::SQLException &e){
         if(e.getErrorCode() == DUPLICATE_ERROR){
             std::cout << "Account Already exists" << std::endl;
@@ -93,5 +94,57 @@ bool DatabaseHandler::insert(account_data user){
             return false;
         }   
     }
+    return true;
+}
+
+bool DatabaseHandler::remove(std::string accountNumber){
+    try{
+        std::stringstream query;
+        query << "DELETE FROM accounts WHERE account = '" << accountNumber << "'";
+
+        //Execute Query statement
+        sql::Statement * statement = connection->createStatement();
+        statement->execute(query.str());
+        delete statement;
+    }catch(sql::SQLException &e){
+        std::cout << "[ERR] " << e.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool DatabaseHandler::update(const std::string accountNumber, const std::string field, const std::string value){
+    try{
+        //Prepare query statement
+        std::stringstream query;
+        query << "UPDATE accounts SET ";
+        if(field == "phone_number"){
+            query << "phone = '" << value << "' ";
+        }else if(field == "address"){
+            query << "address = '" << value << "' ";
+        }else if(field == "balance"){
+            query << "balance = " << value << " ";
+        }else if(field == "name"){
+            query << "name = '" << value << "' ";
+        }else{
+            std::cout << "[err] Invalid Field: " << field << std::endl;
+            return false;
+        }
+        query << "WHERE account = '" << accountNumber << "'";
+
+        //Execute Statement
+        sql::Statement * statement = connection->createStatement();
+        statement->execute(query.str());
+        delete statement;
+
+    } catch (sql::SQLException &e){
+        std::cout << "[ERR] " << e.what() << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool DatabaseHandler::view(){
     return true;
 }

@@ -23,8 +23,8 @@ public:
 
     //Main Database Methods
     bool insert(account_data user);
-    bool remove();
-    bool update();
+    bool remove(std::string accountNumber);
+    bool update(const std::string accountNumber, const std::string field, const std::string value);
     bool view();
 };
 
