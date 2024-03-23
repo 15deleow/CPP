@@ -215,3 +215,34 @@ bool DatabaseHandler::accountLookup(const std::string accountNumber, account_dat
 
     return true;
 }
+
+bool DatabaseHandler::transaction(const std::string accountNumber, int transactionType, double value){
+    try{
+        if(searchAccount(accountNumber) == false){
+            std::cout << "[ERR] Account " << accountNumber << " does not exist!" << std::endl;
+            return false;
+        }
+
+        //Get current balance
+        std::string query = "SELECT * FROM accounts WHERE account = '" + accountNumber + "'";
+        sql::Statement * statement = connection->createStatement();
+        sql::ResultSet * result = statement->executeQuery(query);
+        result->next();
+        double balance = result->getDouble("balance");
+
+        if(transactionType == WITHDRAW){
+            //Update balance
+            balance -= value;
+            return update(accountNumber, "balance", std::to_string(balance));
+        }else if (transactionType == DEPOSIT){
+            balance += value;
+            return update(accountNumber, "balance", std::to_string(balance));
+        }else{
+            std::cout << "[ERR] Invalid Input: " << transactionType << std::endl;
+            return false;
+        }
+    }catch(sql::SQLException &e){
+        std::cout << "[ERR] " << e.what() << std::endl;
+        return false;
+    }
+}

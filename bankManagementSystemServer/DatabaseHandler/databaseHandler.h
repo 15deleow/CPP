@@ -27,6 +27,7 @@ public:
     bool remove(std::string accountNumber);
     bool update(const std::string accountNumber, const std::string field, const std::string value);
     bool accountLookup(const std::string accountNumber, account_data * data);
+    bool transaction(const std::string accountNumber, int transactionType, double value);
 };
 
 #endif //DATABASE_HANDLER_H
