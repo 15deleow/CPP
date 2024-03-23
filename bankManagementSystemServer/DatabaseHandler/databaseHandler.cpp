@@ -145,6 +145,73 @@ bool DatabaseHandler::update(const std::string accountNumber, const std::string 
     return true;
 }
 
-bool DatabaseHandler::view(){
+bool DatabaseHandler::searchAccount(std::string accountNumber){
+    try{
+        sql::PreparedStatement * statement;
+        sql::ResultSet * result;
+        
+        // Construct the SQL query with a subquery using EXISTS
+        std::string query = "SELECT * FROM accounts WHERE EXISTS (SELECT * FROM accounts WHERE account = ?)";
+        
+        // Prepare the statement
+        statement = connection->prepareStatement(query);
+        statement->setString(1, accountNumber);
+
+        //Execute query
+        result = statement->executeQuery();
+
+        //Check if any rows were returned
+        if(result->next() == false){
+            delete statement;
+            delete result;
+            return true;
+        }
+        
+        delete statement;
+        delete result;
+    }catch (sql::SQLException &e){
+        std::cout << "[ERR] " << e.what() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool DatabaseHandler::accountLookup(const std::string accountNumber, account_data * data){   
+    try{
+        //Verify if account exists in database
+        if( searchAccount(accountNumber) == false){
+            std::cout << "[ERR] Account " << accountNumber << " does not exist in database" << std::endl;
+            return false; 
+        }
+                   
+        // Construct the SQL query with a subquery using EXISTS
+        std::string query = "SELECT * FROM accounts WHERE account = '" + accountNumber + "'";
+            
+        // Prepare the statement
+        sql::Statement * statement = connection->createStatement();
+
+        //Execute query
+        sql::ResultSet * result = statement->executeQuery(query);
+
+        //Store data into passed in data struct
+        result->next();
+        data->name = result->getString("name");
+        data->accountNumber = result->getString("account");
+        data->age = result->getInt("age");
+        data->address = result->getString("address");
+        data->accountType = result->getInt("account_type");
+        data->phoneNumber = result->getString("phone");
+        data->balance = result->getDouble("balance");
+        data->dob = result->getString("dob");
+        data->date = result->getString("date");
+
+        delete statement;
+        delete result;
+    } catch(sql::SQLException &e){
+        std::cout << "[ERR] " << e.what() << std::endl;
+        return false;
+    }
+
     return true;
 }

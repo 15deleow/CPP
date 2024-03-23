@@ -17,6 +17,7 @@ private:
 
     bool createDatabase();
     bool createTable();
+    bool searchAccount(std::string accountNumber);
 public:
     DatabaseHandler(std::string url, std::string userName, std::string password);
     ~DatabaseHandler();
@@ -25,7 +26,7 @@ public:
     bool insert(account_data user);
     bool remove(std::string accountNumber);
     bool update(const std::string accountNumber, const std::string field, const std::string value);
-    bool view();
+    bool accountLookup(const std::string accountNumber, account_data * data);
 };
 
 #endif //DATABASE_HANDLER_H
